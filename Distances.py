@@ -11,9 +11,7 @@ def delet(input_graph, ver):
         output_edges = []
     input_edges = []
     for vertex in input_graph:
-        # print(input_graph[vertex])
         for j in range(len(input_graph[vertex])):
-            # print(input_graph[vertex][j])
             if input_graph[vertex][j][0] == ver:
                 input_edges.append([vertex, input_graph[vertex][j][1]])
                 del input_graph[vertex][j]
@@ -117,7 +115,6 @@ for order in range(len(other_node)):
     added.append(this_node)
     added_edges = deleted_node_output[this_node]
 
-    # print(distance_matrix)
     for l in range(len(added_edges[0])):
         distance_matrix[this_node][added_edges[0][l][0]] = min(distance_matrix[this_node][added_edges[0][l][0]],
                                                                added_edges[0][l][1])
@@ -134,24 +131,9 @@ for order in range(len(other_node)):
                 amount = distance_matrix[i][added_edges[1][l][0]] + distance_matrix[added_edges[1][l][0]][this_node]
                 distance_matrix[i][this_node] = min(distance_matrix[i][this_node], amount)
 
-        # if this_node == 1:
-        #     print()
-        # print(this_node)
-
-    # print(distance_matrix)
     added_edges = deleted_node_output[this_node]
     distance_matrix = add_node(this_node, added_edges, distance_matrix, added)
-    # print(this_node)
-    # print(added_edges)
-    # print('----')
 
-# print(distance_matrix)
-# print()
-
-# print(added)
-# print(distance_matrix)
-#
-# print()
 queries.reverse()
 for query in queries:
     if query[0] == 1:
@@ -159,7 +141,6 @@ for query in queries:
         added.append(this_node)
         added_edges = deleted_node_output[this_node]
 
-        # print(distance_matrix)
         for l in range(len(added_edges[0])):
             distance_matrix[this_node][added_edges[0][l][0]] = min(distance_matrix[this_node][added_edges[0][l][0]],
                                                                    added_edges[0][l][1])
@@ -176,44 +157,16 @@ for query in queries:
                     amount = distance_matrix[i][added_edges[1][l][0]] + distance_matrix[added_edges[1][l][0]][this_node]
                     distance_matrix[i][this_node] = min(distance_matrix[i][this_node], amount)
 
-            # if this_node == 1:
-            #     print()
-            # print(this_node)
-
-        # print(distance_matrix)
         added_edges = deleted_node_output[this_node]
         distance_matrix = add_node(this_node, added_edges, distance_matrix, added)
-        # print(distance_matrix)
-        # print(this_node)
-        # print()
-        # print(distance_matrix)
     elif query[0] == 2:
         if distance_matrix[query[1]][query[2]] != 99999:
             answers.append(distance_matrix[query[1]][query[2]])
         else:
             answers.append(-1)
 
-# print()
-# print(distance_matrix)
-# print(other_node)
-# for order in range(len(other_node)):
-#     this_node = other_node[order]
-#     added_edges = deleted_node_output[this_node]
-#     # print(this_node)
-#     distance_matrix = add_node(this_node, added_edges, distance_matrix, added)
-#
-# print(distance_matrix)
 answers.reverse()
 
-# print()
 for answer in answers:
     print(answer)
 
-    # queries.reverse()
-    # for query in queries:
-    #
-    #     if query[0] == 2:
-    #         if distance_matrix[query[1]][query[2]] != 99999:
-    #             print(distance_matrix[query[1]][query[2]])
-    #         else:
-    #             print(-1)
