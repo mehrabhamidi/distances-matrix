@@ -2,6 +2,8 @@ n, m, k = list(map(int, input().split()))
 graph = {}
 graph_input = {}
 
+max_int = 999999999999
+
 
 def delet(input_graph, ver):
     if ver in input_graph:
@@ -60,7 +62,7 @@ for i in range(k):
         queries.append([2, v1 - 1, v2 - 1])
         # answers.append(distance_matrix[v1, v2])
 
-distance_matrix = [[99999 for _ in range(n)] for _ in range(n)]
+distance_matrix = [[max_int for _ in range(n)] for _ in range(n)]
 
 other_node = []
 for node in remain_nodes:
@@ -90,10 +92,10 @@ def add_node(this_node_func, added_edges_func, distance_matrix_func, added_func)
                 distance_matrix_func[i][j] = 0
             else:
                 # for k in added:
-                alter_i = 99999
+                alter_i = max_int
                 if i in in_dic:
                     alter_i = in_dic[i]
-                alter_j = 99999
+                alter_j = max_int
                 if j in out_dic:
                     alter_j = out_dic[j]
 
@@ -160,7 +162,7 @@ for query in queries:
         added_edges = deleted_node_output[this_node]
         distance_matrix = add_node(this_node, added_edges, distance_matrix, added)
     elif query[0] == 2:
-        if distance_matrix[query[1]][query[2]] != 99999:
+        if distance_matrix[query[1]][query[2]] != max_int:
             answers.append(distance_matrix[query[1]][query[2]])
         else:
             answers.append(-1)
@@ -169,4 +171,3 @@ answers.reverse()
 
 for answer in answers:
     print(answer)
-
