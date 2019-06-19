@@ -1,58 +1,26 @@
 n, m, k = list(map(int, input().split()))
-graph = {}
-graph_input = {}
 
-max_int = 999999999999
+in_edge_matrix = [[-1 for _ in range(n)] for _ in range(n)]
+out_edge_matrix = [[-1 for _ in range(n)] for _ in range(n)]
 
-
-def delet(input_graph, ver):
-    if ver in input_graph:
-        output_edges = input_graph[ver]
-        del input_graph[ver]
-    else:
-        output_edges = []
-    input_edges = []
-    for vertex in input_graph:
-        for j in range(len(input_graph[vertex])):
-            if input_graph[vertex][j][0] == ver:
-                input_edges.append([vertex, input_graph[vertex][j][1]])
-                del input_graph[vertex][j]
-                break
-
-    return output_edges, input_edges
-
-
+max_int = 10 ** 14
+# graph saving:
 for i in range(m):
     v1, v2, w = list(map(int, input().split()))
-    if v1 - 1 in graph:
-        graph[int(v1) - 1].append([int(v2) - 1, w])
-    else:
-        graph[int(v1) - 1] = [[int(v2) - 1, w]]
-    if v2 - 1 in graph_input:
-        graph_input[v2 - 1].append([v1 - 1, w])
-    else:
-        graph_input[v2 - 1] = [[v1 - 1, w]]
+    out_edge_matrix[v1 - 1][v2 - 1] = w
+    in_edge_matrix[v2 - 1][v1 - 1] = w
 
 answers = []
-
-deleted_node_order = []
 queries = []
-
-deleted_node_output = {}
-deleted_node_ordering = []
-
 remain_nodes = [i for i in range(n)]
+
+# query saving:
 for i in range(k):
     query = list(map(int, input().split()))
     type_of_input = query[0]
 
     if query[0] == 1:
         v = query[1]
-        result = delet(graph, v - 1)
-        deleted_node_output[v - 1] = ([result[0], result[1]])
-        deleted_node_ordering.append(v - 1)
-
-        deleted_node_order.append(int(v) - 1)
         queries.append([1, int(v) - 1])
         remain_nodes[int(v) - 1] = -1
 
@@ -60,7 +28,6 @@ for i in range(k):
         v1 = query[1]
         v2 = query[2]
         queries.append([2, v1 - 1, v2 - 1])
-        # answers.append(distance_matrix[v1, v2])
 
 distance_matrix = [[max_int for _ in range(n)] for _ in range(n)]
 
@@ -69,15 +36,8 @@ for node in remain_nodes:
     if node != -1:
         other_node.append(node)
 
-new_graph_node = []
-for node in other_node:
-    result = delet(graph, node)
-    deleted_node_output[node] = [result[0], result[1]]
-    deleted_node_ordering.append(node)
 
-other_node.reverse()
-
-
+# add node and and ont time floyd
 def add_node(this_node_func, added_edges_func, distance_matrix_func, added_func):
     out_dic = {}
     in_dic = {}
@@ -110,12 +70,24 @@ def add_node(this_node_func, added_edges_func, distance_matrix_func, added_func)
     return distance_matrix_func
 
 
-added = []
+current_node = []
 
-for order in range(len(other_node)):
+# adding prior node
+for order in range(len(other_node) - 1, -1, -1):
     this_node = other_node[order]
-    added.append(this_node)
-    added_edges = deleted_node_output[this_node]
+    current_node.append(this_node)
+
+    added_edges = [[], []]
+
+    out_row = out_edge_matrix[this_node]
+    for node in current_node:
+        if out_row[node] != -1:
+            added_edges[0].append([node, out_row[node]])
+
+    in_row = in_edge_matrix[this_node]
+    for node in current_node:
+        if in_row[node] != -1:
+            added_edges[1].append([node, in_row[node]])
 
     for l in range(len(added_edges[0])):
         distance_matrix[this_node][added_edges[0][l][0]] = min(distance_matrix[this_node][added_edges[0][l][0]],
@@ -133,15 +105,26 @@ for order in range(len(other_node)):
                 amount = distance_matrix[i][added_edges[1][l][0]] + distance_matrix[added_edges[1][l][0]][this_node]
                 distance_matrix[i][this_node] = min(distance_matrix[i][this_node], amount)
 
-    added_edges = deleted_node_output[this_node]
-    distance_matrix = add_node(this_node, added_edges, distance_matrix, added)
+    distance_matrix = add_node(this_node, added_edges, distance_matrix, current_node)
 
-queries.reverse()
-for query in queries:
+# adding deleted node
+for index in range(len(queries) - 1, -1, -1):
+    query = queries[index]
     if query[0] == 1:
         this_node = query[1]
-        added.append(this_node)
-        added_edges = deleted_node_output[this_node]
+        current_node.append(this_node)
+
+        added_edges = [[], []]
+
+        out_row = out_edge_matrix[this_node]
+        for node in current_node:
+            if out_row[node] != -1:
+                added_edges[0].append([node, out_row[node]])
+
+        in_row = in_edge_matrix[this_node]
+        for node in current_node:
+            if in_row[node] != -1:
+                added_edges[1].append([node, in_row[node]])
 
         for l in range(len(added_edges[0])):
             distance_matrix[this_node][added_edges[0][l][0]] = min(distance_matrix[this_node][added_edges[0][l][0]],
@@ -159,15 +142,12 @@ for query in queries:
                     amount = distance_matrix[i][added_edges[1][l][0]] + distance_matrix[added_edges[1][l][0]][this_node]
                     distance_matrix[i][this_node] = min(distance_matrix[i][this_node], amount)
 
-        added_edges = deleted_node_output[this_node]
-        distance_matrix = add_node(this_node, added_edges, distance_matrix, added)
+        distance_matrix = add_node(this_node, added_edges, distance_matrix, current_node)
     elif query[0] == 2:
         if distance_matrix[query[1]][query[2]] != max_int:
             answers.append(distance_matrix[query[1]][query[2]])
         else:
             answers.append(-1)
 
-answers.reverse()
-
-for answer in answers:
-    print(answer)
+for answer in range(len(answers) - 1, -1, -1):
+    print(answers[answer])
