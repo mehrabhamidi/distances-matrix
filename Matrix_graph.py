@@ -3,8 +3,8 @@ n, m, k = list(map(int, input().split()))
 in_edge_matrix = [[-1 for _ in range(n)] for _ in range(n)]
 out_edge_matrix = [[-1 for _ in range(n)] for _ in range(n)]
 
-max_int = 9 ** 16
-
+max_int = 10 ** 14
+# graph saving:
 for i in range(m):
     v1, v2, w = list(map(int, input().split()))
     out_edge_matrix[v1 - 1][v2 - 1] = w
@@ -12,9 +12,9 @@ for i in range(m):
 
 answers = []
 queries = []
-deleted_node_output = {}
-
 remain_nodes = [i for i in range(n)]
+
+# query saving:
 for i in range(k):
     query = list(map(int, input().split()))
     type_of_input = query[0]
@@ -36,9 +36,8 @@ for node in remain_nodes:
     if node != -1:
         other_node.append(node)
 
-other_node.reverse()
 
-
+# add node and and ont time floyd
 def add_node(this_node_func, added_edges_func, distance_matrix_func, added_func):
     out_dic = {}
     in_dic = {}
@@ -73,7 +72,8 @@ def add_node(this_node_func, added_edges_func, distance_matrix_func, added_func)
 
 current_node = []
 
-for order in range(len(other_node)):
+# adding prior node
+for order in range(len(other_node) - 1, -1, -1):
     this_node = other_node[order]
     current_node.append(this_node)
 
@@ -107,8 +107,9 @@ for order in range(len(other_node)):
 
     distance_matrix = add_node(this_node, added_edges, distance_matrix, current_node)
 
-queries.reverse()
-for query in queries:
+# adding deleted node
+for index in range(len(queries) - 1, -1, -1):
+    query = queries[index]
     if query[0] == 1:
         this_node = query[1]
         current_node.append(this_node)
@@ -148,6 +149,5 @@ for query in queries:
         else:
             answers.append(-1)
 
-answers.reverse()
-for answer in answers:
-    print(answer)
+for answer in range(len(answers) - 1, -1, -1):
+    print(answers[answer])
