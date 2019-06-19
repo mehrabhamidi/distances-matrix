@@ -1,153 +1,93 @@
-n, m, k = list(map(int, input().split()))
+import queue
 
-in_edge_matrix = [[-1 for _ in range(n)] for _ in range(n)]
-out_edge_matrix = [[-1 for _ in range(n)] for _ in range(n)]
+dim = int(input())
 
-max_int = 10 ** 14
-# graph saving:
-for i in range(m):
-    v1, v2, w = list(map(int, input().split()))
-    out_edge_matrix[v1 - 1][v2 - 1] = w
-    in_edge_matrix[v2 - 1][v1 - 1] = w
+matrix = []
+distances = []
+for i in range(dim):
+    row = list(map(int, input().split()))
+    matrix.append(row)
 
-answers = []
-queries = []
-remain_nodes = [i for i in range(n)]
+matrix_dictionary = {}
 
-# query saving:
-for i in range(k):
-    query = list(map(int, input().split()))
-    type_of_input = query[0]
+dimension = dim - 1
+for i in range(dim):
+    for j in range(dim):
+        matrix_dictionary[i * dim + j] = matrix[i][j]
 
-    if query[0] == 1:
-        v = query[1]
-        queries.append([1, int(v) - 1])
-        remain_nodes[int(v) - 1] = -1
+sorted_value = sorted(matrix_dictionary.values())
 
-    if query[0] == 2:
-        v1 = query[1]
-        v2 = query[2]
-        queries.append([2, v1 - 1, v2 - 1])
+sorted_list = []
 
-distance_matrix = [[max_int for _ in range(n)] for _ in range(n)]
+for element in sorted_value:
+    for key in matrix_dictionary:
+        if element == matrix_dictionary[key]:
+            sorted_list.append([key, element])
+            del matrix_dictionary[key]
+            break
 
-other_node = []
-for node in remain_nodes:
-    if node != -1:
-        other_node.append(node)
+graph = {}
+for i in range(dim):
+    graph[i] = []
 
 
-# add node and and ont time floyd
-def add_node(this_node_func, added_edges_func, distance_matrix_func, added_func):
-    out_dic = {}
-    in_dic = {}
-    for clause in added_edges_func[0]:
-        out_dic[clause[0]] = clause[1]
-    for clause in added_edges_func[1]:
-        in_dic[clause[0]] = clause[1]
+def dijkstra(graph_dictionary, start_node, end_node, visited_node, number_of_visited_node, distances_from_source):
+    distances_from_source[start_node] = 0
 
-    for i in added_func:
-        for j in added_func:
-            if i == j:
-                distance_matrix_func[i][j] = 0
-            else:
-                # for k in added:
-                alter_i = max_int
-                if i in in_dic:
-                    alter_i = in_dic[i]
-                alter_j = max_int
-                if j in out_dic:
-                    alter_j = out_dic[j]
+    priority_queue = queue.Queue()
+    priority_queue.put(start_node)
 
-                if alter_i > distance_matrix_func[i][this_node_func]:
-                    alter_i = distance_matrix_func[i][this_node_func]
-                if alter_j > distance_matrix_func[this_node_func][j]:
-                    alter_j = distance_matrix_func[this_node_func][j]
+    while priority_queue.qsize() != 0:
+        this_node = priority_queue.get()
+        if visited_node[this_node] == 0:
+            visited_node[this_node] = 1
+            number_of_visited_node += 1
+            for neighbors in graph_dictionary[this_node]:
+                priority_queue.put(neighbors[0])
+                new_distance = neighbors[1] + distances_from_source[this_node]
+                distances_from_source[neighbors[0]] = min(distances_from_source[neighbors[0]], new_distance)
 
-                amount_func = alter_i + alter_j
-                distance_matrix_func[i][j] = min(distance_matrix_func[i][j], amount_func)
-
-    return distance_matrix_func
-
-
-current_node = []
-
-# adding prior node
-for order in range(len(other_node) - 1, -1, -1):
-    this_node = other_node[order]
-    current_node.append(this_node)
-
-    added_edges = [[], []]
-
-    out_row = out_edge_matrix[this_node]
-    for node in current_node:
-        if out_row[node] != -1:
-            added_edges[0].append([node, out_row[node]])
-
-    in_row = in_edge_matrix[this_node]
-    for node in current_node:
-        if in_row[node] != -1:
-            added_edges[1].append([node, in_row[node]])
-
-    for l in range(len(added_edges[0])):
-        distance_matrix[this_node][added_edges[0][l][0]] = min(distance_matrix[this_node][added_edges[0][l][0]],
-                                                               added_edges[0][l][1])
-        for i in range(n):
-            if i != this_node:
-                amount = distance_matrix[added_edges[0][l][0]][i] + distance_matrix[this_node][added_edges[0][l][0]]
-                distance_matrix[this_node][i] = min(distance_matrix[this_node][i], amount)
-
-    for l in range(len(added_edges[1])):
-        distance_matrix[added_edges[1][l][0]][this_node] = min(distance_matrix[added_edges[1][l][0]][this_node],
-                                                               added_edges[1][l][1])
-        for i in range(n):
-            if i != this_node:
-                amount = distance_matrix[i][added_edges[1][l][0]] + distance_matrix[added_edges[1][l][0]][this_node]
-                distance_matrix[i][this_node] = min(distance_matrix[i][this_node], amount)
-
-    distance_matrix = add_node(this_node, added_edges, distance_matrix, current_node)
-
-# adding deleted node
-for index in range(len(queries) - 1, -1, -1):
-    query = queries[index]
-    if query[0] == 1:
-        this_node = query[1]
-        current_node.append(this_node)
-
-        added_edges = [[], []]
-
-        out_row = out_edge_matrix[this_node]
-        for node in current_node:
-            if out_row[node] != -1:
-                added_edges[0].append([node, out_row[node]])
-
-        in_row = in_edge_matrix[this_node]
-        for node in current_node:
-            if in_row[node] != -1:
-                added_edges[1].append([node, in_row[node]])
-
-        for l in range(len(added_edges[0])):
-            distance_matrix[this_node][added_edges[0][l][0]] = min(distance_matrix[this_node][added_edges[0][l][0]],
-                                                                   added_edges[0][l][1])
-            for i in range(n):
-                if i != this_node:
-                    amount = distance_matrix[added_edges[0][l][0]][i] + distance_matrix[this_node][added_edges[0][l][0]]
-                    distance_matrix[this_node][i] = min(distance_matrix[this_node][i], amount)
-
-        for l in range(len(added_edges[1])):
-            distance_matrix[added_edges[1][l][0]][this_node] = min(distance_matrix[added_edges[1][l][0]][this_node],
-                                                                   added_edges[1][l][1])
-            for i in range(n):
-                if i != this_node:
-                    amount = distance_matrix[i][added_edges[1][l][0]] + distance_matrix[added_edges[1][l][0]][this_node]
-                    distance_matrix[i][this_node] = min(distance_matrix[i][this_node], amount)
-
-        distance_matrix = add_node(this_node, added_edges, distance_matrix, current_node)
-    elif query[0] == 2:
-        if distance_matrix[query[1]][query[2]] != max_int:
-            answers.append(distance_matrix[query[1]][query[2]])
         else:
-            answers.append(-1)
+            for neighbors in graph_dictionary[this_node]:
+                new_distance = neighbors[1] + distances_from_source[neighbors[0]]
+                distances_from_source[this_node] = min(distances_from_source[this_node], new_distance)
+    return distances_from_source[end_node]
 
-for answer in range(len(answers) - 1, -1, -1):
-    print(answers[answer])
+
+number_of_edges = 0
+iterate = True
+for clause in sorted_list:
+    key = clause[0]
+    real_distance = clause[1]
+    if key < dim:
+        i = 0
+    else:
+        i = int(key / dim)
+    j = key - i * dim
+    graph_distance = dijkstra(graph, i, j, [0 for _ in range(dim)], 0, [10 ** 14 for _ in range(dim)])
+
+    if i != j:
+        if graph_distance < real_distance:
+            print('No solution')
+            iterate = False
+            break
+        elif graph_distance > real_distance:
+            exist = False
+            for inner_clause in graph[i]:
+                if clause[0] == j:
+                    exist = True
+                    break
+            if not exist:
+                graph[i].append([j, real_distance])
+                graph[j].append([i, real_distance])
+                number_of_edges += 1
+
+if iterate:
+    print(number_of_edges)
+    for node in graph:
+        for clause in graph[node]:
+            print(node + 1, clause[0] + 1, clause[1])
+            for search in graph[clause[0]]:
+                if search[0] == node:
+                    graph[clause[0]].remove(search)
+                    break
