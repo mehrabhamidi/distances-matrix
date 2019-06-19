@@ -56,6 +56,8 @@ def dijkstra(graph_dictionary, start_node, end_node, visited_node, number_of_vis
 
 number_of_edges = 0
 iterate = True
+
+# building graph bu iterate on distances list in increasinng order
 for clause in sorted_list:
     key = clause[0]
     real_distance = clause[1]
