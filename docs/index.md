@@ -132,10 +132,10 @@ devtools::install_github("r-lib/devtools")
 
   The first data.frame contains the input genomic regions and 3 extra columns which specify:
 
-  1.The number of target genomic regions that interact with each input genomic region through Hi-C interactions.
+  1. The number of target genomic regions that interact with each input genomic region through Hi-C interactions.
 
-  1.The IDs of target genomic regions that interact with each input genomic region through Hi-C interactions (separated by comma).
+  2. The IDs of target genomic regions that interact with each input genomic region through Hi-C interactions (separated by comma).
 
-  1.The IDs of Hi-C interactions that connect each input genomic region with target genomic regions (separated by comma).
+  3. The IDs of Hi-C interactions that connect each input genomic region with target genomic regions (separated by comma).
 
   The second data.frame provides further information about each Hi-C interaction. It specifies the genomic regions of the left and right Hi-C fragments. Furthermore, the IDs of input genomic regions and target genomic regions that interact through these Hi-C interactions are listed in each row (separated by comma).
