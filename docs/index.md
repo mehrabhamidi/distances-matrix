@@ -1,7 +1,13 @@
-<h1> SomaGene 
+# SomaGene 
   
-  <h3>Lisence and stuffs<h3>
- <h1>
-  
+  some explanation and logo ans stuffs //TODO
 
-hello world
+  
+  
+## Installation 
+  
+### Requirements
+  * [S4Vectors](https://bioconductor.org/packages/release/bioc/html/S4Vectors.html)
+  * [GenomicRanges](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html)
+  
+  
