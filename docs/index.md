@@ -40,6 +40,28 @@ devtools::install_github("r-lib/devtools")
    * **input_start**: Numeric vector specifying the starting position of input genomic regions.
    * **input_end**: Numeric vector specifying the ending position of input genomic regions.
    * **overlap_count**: Numeric vector specifying the count of overlapped annotations with that geneID.
-   * **overlapping_annot_IDs**: Character vector specifying the IDs of overlapped annotations with that geneID.
+   * **overlapping_annot_IDs**: Character vector specifying the IDs of overlapped annotations with that geneID (separated by comma).
+
+  
+* `annotateMultiScore(input_id, input_chr, input_start, input_end, annot_chr,
+  annot_start, annot_end, annot_sub_id, annot_sub_score)` 
+                
+  __inputs__:
+  * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
+  * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+  * **annot_chr**: Character vector defining the name of the chromosome for annotation entries (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **annot_start**: Numeric vector specifying the starting position of annotation entries.
+  * **annot_end**: Numeric vector specifying the ending position of annotation entries.
+  * **annot_sub_ids**: Character vector defining sets of sub-IDs for annotation entries (separated by comma).
+  * **annot_sub_score**: Character vector defining sets of sub-scores for annotation entries (separated by comma). 
+  
+   __outputs__:
+   * **input_ID**: Character vector specifying the operlapping annotation ids of output (separated by comma).
+   * **overlap_sub_ids**: The sub-IDs of annotation entries that overlap with each input region (separated by comma).
+   * **overlap_sub_scores**: CThe average score of annotation for each overlapping sub-ID over each input region (separated by comma).
+   * **overlap_sub_percentages**: The percentage of overlap between each input region and its overlapping sub-IDs (separated by comma).
+
 
   
