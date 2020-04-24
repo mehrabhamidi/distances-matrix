@@ -149,4 +149,10 @@ devtools::install_github("r-lib/devtools")
       * start - The starting position of the region in the chromosome.
       * end - The ending position of the region in the chromosome.
 
-  
+    * **mutational_catalogs**:	A list of data.frames. Each data.frame contains the mutational catalogue in a specific cancer and must have the following columns: 
+      * subject_id - Defines the id of the subject for which the mutation is recorded (e.g. ICGC donor-id or sample-id).
+      * chr - The name of the chromosome (one of chr1, chr2, ..., chrX, chrY or chrM).
+      * pos - The position of the mutation in the chromosome.
+      * cancer - The cancer type of the mutational catalogue.
+
+
