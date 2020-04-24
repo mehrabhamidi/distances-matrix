@@ -75,7 +75,7 @@ devtools::install_github("r-lib/devtools")
   * **annot_chr**: Character vector defining the name of the chromosome for annotation entries (one of chr1, chr2, ..., chrX, chrY or chrM).
   * **annot_start**: Numeric vector specifying the starting position of annotation entries.
   * **annot_end**: Numeric vector specifying the ending position of annotation entries.
-  * **annot_score**: Numeric vector specifying scores for annotation entries. (separated by comma). 
+  * **annot_score**: Numeric vector specifying scores for annotation entries (separated by comma). 
   
    __outputs__:
    * **input_ID**: Character vector specifying the operlapping annotation ids of output (separated by comma).
@@ -86,3 +86,23 @@ devtools::install_github("r-lib/devtools")
    * **overlap_percentage**: The percentage of overlap between each input region and annotation entries.
 
   
+* `annotateCategorical(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_category)` 
+                
+  __inputs__:
+  * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
+  * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+  * **annot_chr**: Character vector defining the name of the chromosome for annotation entries (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **annot_start**: Numeric vector specifying the starting position of annotation entries.
+  * **annot_end**: Numeric vector specifying the ending position of annotation entries.
+  * **annot_category**: Character vector specifying categories for annotation entries.
+  
+   __outputs__:
+   * **input_ID**: Character vector specifying the operlapping annotation ids of output (separated by comma).
+    * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+   * **overlapping_categories**: The categories that overlap with each input region (separated by comma).
+   * **overlapping_percentage**: The percentages of overlaps between each input region and its overlapping categories (separated by comma).
+   
