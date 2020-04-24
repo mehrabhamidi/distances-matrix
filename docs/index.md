@@ -21,7 +21,8 @@ devtools::install_github("r-lib/devtools")
 
 ## Usage
 
-* `annotateBinary(input_id, input_chr, input_start, input_end, annot_id = NULL, annot_chr, annot_start, annot_end)` 
+* `annotateBinary(input_id, input_chr, input_start, input_end, annot_id = NULL, annot_chr, annot_start, annot_end)`  : This function annotates the input genomic regions with a given "binary" annotation. A "binary" annotation is simply a set of genomic regions without any extra attribute (e.g. the set of enhancers/promoters or the set of eQTLs).
+
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
