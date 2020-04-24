@@ -22,7 +22,8 @@ devtools::install_github("r-lib/devtools")
 ## Usage
 
 * `annotateBinary(input_id, input_chr, input_start, input_end,
-                annot_id = NULL, annot_chr, annot_start, annot_end)` \\
+                annot_id = NULL, annot_chr, annot_start, annot_end)` 
+                
   __inputs__:
   * *input_id*: Character vector defining the name of input genomic regions (e.g. gene id)
   * *input_chr*: 	Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
