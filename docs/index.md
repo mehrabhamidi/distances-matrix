@@ -21,8 +21,7 @@ devtools::install_github("r-lib/devtools")
 
 ## Usage
 
-* `annotateBinary(input_id, input_chr, input_start, input_end,
-                annot_id = NULL, annot_chr, annot_start, annot_end)` 
+* `annotateBinary(input_id, input_chr, input_start, input_end, annot_id = NULL, annot_chr, annot_start, annot_end)` 
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
@@ -43,8 +42,7 @@ devtools::install_github("r-lib/devtools")
    * **overlapping_annot_IDs**: Character vector specifying the IDs of overlapped annotations with that geneID (separated by comma).
 
   
-* `annotateMultiScore(input_id, input_chr, input_start, input_end, annot_chr,
-  annot_start, annot_end, annot_sub_id, annot_sub_score)` 
+* `annotateMultiScore(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_sub_id, annot_sub_score)` 
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
@@ -59,9 +57,32 @@ devtools::install_github("r-lib/devtools")
   
    __outputs__:
    * **input_ID**: Character vector specifying the operlapping annotation ids of output (separated by comma).
+    * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
    * **overlap_sub_ids**: The sub-IDs of annotation entries that overlap with each input region (separated by comma).
    * **overlap_sub_scores**: CThe average score of annotation for each overlapping sub-ID over each input region (separated by comma).
    * **overlap_sub_percentages**: The percentage of overlap between each input region and its overlapping sub-IDs (separated by comma).
 
+
+* `annotateSingleScore(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_score)` 
+                
+  __inputs__:
+  * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
+  * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+  * **annot_chr**: Character vector defining the name of the chromosome for annotation entries (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **annot_start**: Numeric vector specifying the starting position of annotation entries.
+  * **annot_end**: Numeric vector specifying the ending position of annotation entries.
+  * **annot_score**: Numeric vector specifying scores for annotation entries. (separated by comma). 
+  
+   __outputs__:
+   * **input_ID**: Character vector specifying the operlapping annotation ids of output (separated by comma).
+    * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+   * **overlap_score**: The average score of annotation over each input region.
+   * **overlap_percentage**: The percentage of overlap between each input region and annotation entries.
 
   
