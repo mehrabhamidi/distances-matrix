@@ -106,3 +106,36 @@ devtools::install_github("r-lib/devtools")
    * **overlapping_categories**: The categories that overlap with each input region (separated by comma).
    * **overlapping_percentage**: The percentages of overlaps between each input region and its overlapping categories (separated by comma).
    
+
+* `findHiCinteractions(input_id, input_chr, input_start, input_end, hic_f1_id, hic_f1_chr, hic_f1_start, hic_f1_end, hic_f2_id, hic_f2_chr, hic_f2_start, hic_f2_end, target_id, target_chr, target_start, target_end)` 
+                
+  __inputs__:
+  * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
+  * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+  * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+  * **hic_f1_id**: Character defining the ID for left fragments of Hi-C interactions.
+  * **hic_f1_chr**: Character vector defining the name of the chromosome for left fragments of Hi-C interactions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **hic_f1_start**: Numeric vector specifying the starting position of left fragments of Hi-C interactions.
+  * **hic_f1_end**: Numeric vector specifying the ending position of left fragments of Hi-C interactions.
+  * **hic_f2_id**: Character defining the ID for left fragments of Hi-C interactions.
+  * **hic_f2_chr**: Character vector defining the name of the chromosome for left fragments of Hi-C interactions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **hic_f2_start**: Numeric vector specifying the starting position of left fragments of Hi-C interactions.
+  * **hic_f2_end**: Numeric vector specifying the ending position of left fragments of Hi-C interactions.
+  * **target_id**: Character vector defining the name of target genomic regions (e.g. gene id)
+  * **target_chr**: Character vector defining the name of the chromosome for target genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+  * **target_start**: Numeric vector specifying the starting position of target genomic regions.
+  * **target_end**: Numeric vector specifying the ending position of target genomic regions.
+  
+   __outputs__:
+   A list of two data.frames:
+
+  The first data.frame contains the input genomic regions and 3 extra columns which specify:
+
+  1.The number of target genomic regions that interact with each input genomic region through Hi-C interactions.
+
+  1.The IDs of target genomic regions that interact with each input genomic region through Hi-C interactions (separated by comma).
+
+  1.The IDs of Hi-C interactions that connect each input genomic region with target genomic regions (separated by comma).
+
+  The second data.frame provides further information about each Hi-C interaction. It specifies the genomic regions of the left and right Hi-C fragments. Furthermore, the IDs of input genomic regions and target genomic regions that interact through these Hi-C interactions are listed in each row (separated by comma).
