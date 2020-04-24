@@ -123,7 +123,8 @@ devtools::install_github("r-lib/devtools")
 
    
 
-* `findHiCinteractions(input_id, input_chr, input_start, input_end, hic_f1_id, hic_f1_chr, hic_f1_start, hic_f1_end, hic_f2_id, hic_f2_chr, hic_f2_start, hic_f2_end, target_id, target_chr, target_start, target_end)` 
+* `findHiCinteractions(input_id, input_chr, input_start, input_end, hic_f1_id, hic_f1_chr, hic_f1_start, hic_f1_end, hic_f2_id, hic_f2_chr, hic_f2_start, hic_f2_end, target_id, target_chr, target_start, target_end)`: This function finds interactions between input and target genomic regions based on a given set of Hi-C interactions. It basically finds the subset of given Hi-C interactions in which one fragment overlaps with input genomic regions and the other fragment overlaps with target genomic regions.
+ 
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
@@ -156,8 +157,13 @@ devtools::install_github("r-lib/devtools")
 
   The second data.frame provides further information about each Hi-C interaction. It specifies the genomic regions of the left and right Hi-C fragments. Furthermore, the IDs of input genomic regions and target genomic regions that interact through these Hi-C interactions are listed in each row (separated by comma).
   
+  __Note__:
+  * The ID of a Hi-C interaction is defined by concatenating the left fragment ID and the right fragment ID (separated by dash).
+  
 
-* `testRegions(ROIs, mutational_catalogs)` 
+* `testRegions(ROIs, mutational_catalogs)`: Given a set of input genomic regions and a list of mutational catalogues in various cancers, a p-value for each genomic region (in each cancer separately) is calculated which can be used as a measure of how significantly each genomic region is mutated in each cancer (see References for more details).
+
+
   __inputs__:
   
     * **ROIs**:	A data.frame containing input genomic regions. The required columns are: region_id - Defines the name of the genomic regions (e.g. gene id).
@@ -170,5 +176,7 @@ devtools::install_github("r-lib/devtools")
       * chr - The name of the chromosome (one of chr1, chr2, ..., chrX, chrY or chrM).
       * pos - The position of the mutation in the chromosome.
       * cancer - The cancer type of the mutational catalogue.
-
+      
+  __outputs__:
+  * A data.frame containing the input genomic regions, plus the calculated p-values for each genomic region and each cancer.
 
