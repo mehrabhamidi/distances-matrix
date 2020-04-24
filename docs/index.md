@@ -21,7 +21,7 @@ devtools::install_github("r-lib/devtools")
 
 ## Usage
 
-* `annotateBinary(input_id, input_chr, input_start, input_end, annot_id = NULL, annot_chr, annot_start, annot_end)`  : This function annotates the input genomic regions with a given "binary" annotation. A "binary" annotation is simply a set of genomic regions without any extra attribute (e.g. the set of enhancers/promoters or the set of eQTLs).
+* `annotateBinary(input_id, input_chr, input_start, input_end, annot_id = NULL, annot_chr, annot_start, annot_end)`: This function annotates the input genomic regions with a given "binary" annotation. A "binary" annotation is simply a set of genomic regions without any extra attribute (e.g. the set of enhancers/promoters or the set of eQTLs).
 
                 
   __inputs__:
@@ -43,7 +43,7 @@ devtools::install_github("r-lib/devtools")
    * **overlapping_annot_IDs**: Character vector specifying the IDs of overlapped annotations with that geneID (separated by comma).
 
   
-* `annotateMultiScore(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_sub_id, annot_sub_score)` 
+* `annotateMultiScore(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_sub_id, annot_sub_score)`: This function annotates the input genomic regions with a given "multi-score" annotation. A "multi-score" annotation specifies a set of genomic regions and assigns a set of sub-IDs and their corresponding sub-scores to each of them (e.g. the annotation of DNAse hypersensitive clusters by ENCODE).
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
@@ -64,9 +64,16 @@ devtools::install_github("r-lib/devtools")
    * **overlap_sub_ids**: The sub-IDs of annotation entries that overlap with each input region (separated by comma).
    * **overlap_sub_scores**: CThe average score of annotation for each overlapping sub-ID over each input region (separated by comma).
    * **overlap_sub_percentages**: The percentage of overlap between each input region and its overlapping sub-IDs (separated by comma).
+   
+   __Note__:
+   * For each input genomic region, the average score of annotation for each sub-ID is measured as the weighted average of scores of overlapping annotation entries where the percentages of overlaps of annotation entries with the input region are taken as weights (this is measured for each sub-ID separately). The percentage of overlap between an input genomic region with a specific annotation sub-ID is calculated as the total portion of the input region that is covered by that annotation sub-ID divided by the length of the region.
 
 
-* `annotateSingleScore(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_score)` 
+
+
+* `annotateSingleScore(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_score)`: This function annotates the input genomic regions with a given "single-score" annotation. A "single-score" annotation specifies a set of genomic regions and assigns a numeric score to each of them (e.g. the annotation of histone modification peaks by ENCODE).
+
+
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
@@ -85,9 +92,12 @@ devtools::install_github("r-lib/devtools")
   * **input_end**: Numeric vector specifying the ending position of input genomic regions.
    * **overlap_score**: The average score of annotation over each input region.
    * **overlap_percentage**: The percentage of overlap between each input region and annotation entries.
+  
+  __Note__:
+  * For each input genomic region, the average score of annotation is measured as the weighted average of scores of overlapping annotation entries where the percentages of overlaps of annotation entries with the input region are taken as weights. The percentage of overlap between an input genomic region with annotation entries is calculated as the total portion of the input region that is covered by the annotation entries divided by the length of the region.
 
   
-* `annotateCategorical(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_category)` 
+* `annotateCategorical(input_id, input_chr, input_start, input_end, annot_chr, annot_start, annot_end, annot_category)`: This function annotates the input genomic regions with a given "categorical" annotation. A "categorical" annotation specifies a set of genomic regions and assigns a category to each of them (e.g. chromHMM annotation which assigns a chromatin state to any segment of the genome).
                 
   __inputs__:
   * **input_id**: Character vector defining the name of input genomic regions (e.g. gene id)
@@ -106,6 +116,11 @@ devtools::install_github("r-lib/devtools")
   * **input_end**: Numeric vector specifying the ending position of input genomic regions.
    * **overlapping_categories**: The categories that overlap with each input region (separated by comma).
    * **overlapping_percentage**: The percentages of overlaps between each input region and its overlapping categories (separated by comma).
+   
+   __Note__:
+   * The percentage of overlap between an input genomic region with a specific category is calculated as the total portion of the input region that is covered by that category devided by the length of the region.
+
+
    
 
 * `findHiCinteractions(input_id, input_chr, input_start, input_end, hic_f1_id, hic_f1_chr, hic_f1_start, hic_f1_end, hic_f2_id, hic_f2_chr, hic_f2_start, hic_f2_end, target_id, target_chr, target_start, target_end)` 
