@@ -141,15 +141,13 @@ devtools::install_github("r-lib/devtools")
   The second data.frame provides further information about each Hi-C interaction. It specifies the genomic regions of the left and right Hi-C fragments. Furthermore, the IDs of input genomic regions and target genomic regions that interact through these Hi-C interactions are listed in each row (separated by comma).
   
   * `testRegions(ROIs, mutational_catalogs)` 
+  
   __inputs__:
   
     * **ROIs**:	
      * A data.frame containing input genomic regions. The required columns are: region_id - Defines the name of the genomic regions (e.g. gene id).
-
      * chr - The name of the chromosome (one of chr1, chr2, ..., chrX, chrY or chrM).
-
      * start - The starting position of the region in the chromosome.
-
      * end - The ending position of the region in the chromosome.
 
   
