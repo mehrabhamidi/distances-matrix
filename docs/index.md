@@ -143,13 +143,13 @@ devtools::install_github("r-lib/devtools")
   * `testRegions(ROIs, mutational_catalogs)` 
   __inputs__:
   
-  * **ROIs**:	
-   * A data.frame containing input genomic regions. The required columns are: region_id - Defines the name of the genomic regions (e.g. gene id).
+    * **ROIs**:	
+     * A data.frame containing input genomic regions. The required columns are: region_id - Defines the name of the genomic regions (e.g. gene id).
 
-   * chr - The name of the chromosome (one of chr1, chr2, ..., chrX, chrY or chrM).
+     * chr - The name of the chromosome (one of chr1, chr2, ..., chrX, chrY or chrM).
 
-   * start - The starting position of the region in the chromosome.
+     * start - The starting position of the region in the chromosome.
 
-   * end - The ending position of the region in the chromosome.
+     * end - The ending position of the region in the chromosome.
 
   
