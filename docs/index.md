@@ -34,5 +34,12 @@ devtools::install_github("r-lib/devtools")
   * **annot_start**: Numeric vector specifying the starting position of annotation entries.
   * **annot_end**: Numeric vector specifying the ending position of annotation entries.
   
-  
+   __outputs__:
+   * **input_ID**: Character vector defining the name of input genomic regions (e.g. gene id)
+   * **input_chr**: Character vector defining the name of the chromosome for input genomic regions (one of chr1, chr2, ..., chrX, chrY or chrM).
+   * **input_start**: Numeric vector specifying the starting position of input genomic regions.
+   * **input_end**: Numeric vector specifying the ending position of input genomic regions.
+   * **overlap_count**: Numeric vector specifying the count of overlapped annotations with that geneID.
+   * **overlapping_annot_IDs**: Character vector specifying the IDs of overlapped annotations with that geneID.
+
   
