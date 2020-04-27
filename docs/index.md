@@ -7,6 +7,7 @@
 ## Installation 
   
 ### Requirements
+The following R packages:
   * [data.table](https://github.com/Rdatatable/data.table)
   * [GenomicRanges](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html)
   * [IRanges](https://bioconductor.org/packages/release/bioc/html/IRanges.html)
