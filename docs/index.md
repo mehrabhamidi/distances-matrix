@@ -7,8 +7,9 @@
 ## Installation 
   
 ### Requirements
-  * [S4Vectors](https://bioconductor.org/packages/release/bioc/html/S4Vectors.html)
+  * [data.table](https://github.com/Rdatatable/data.table)
   * [GenomicRanges](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html)
+  * [IRanges](https://bioconductor.org/packages/release/bioc/html/IRanges.html)
   
   
 ```r
@@ -161,7 +162,7 @@ devtools::install_github("r-lib/devtools")
   * The ID of a Hi-C interaction is defined by concatenating the left fragment ID and the right fragment ID (separated by dash).
   
 
-* `testRegions(ROIs, mutational_catalogs)`: Given a set of input genomic regions and a list of mutational catalogues in various cancers, a p-value for each genomic region (in each cancer separately) is calculated which can be used as a measure of how significantly each genomic region is mutated in each cancer (see References for more details).
+* `testRegions(ROIs, mutational_catalogs)`: Given a set of input genomic regions and a list of mutational catalogues in various cancers, a p-value for each genomic region (in each cancer separately) is calculated which can be used as a measure of how significantly each genomic region is mutated in each cancer (see [SomaGene]() paper for more details).
 
 
   __inputs__:
